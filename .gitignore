@@ -1,0 +1,6 @@
+.vscode/*
+.database
+public
+node_modules/
+
+!.vscode/settings.json
