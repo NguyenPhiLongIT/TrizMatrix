@@ -37,7 +37,7 @@ body {
 }
 
 .content {
-    height: 700px;
+    height: 800px;
     background-color: rgb(240, 240, 240);
 }
 
@@ -78,10 +78,24 @@ body {
     color: #14345C;
     font-weight: bold;
     font-size: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
-.improvements .concept {
-    list-style: lower-alpha;
-    margin-bottom: 20px;
+.improvements h4{
+    font-size: 20px;
+    margin-top: 10px;
+}
+.improvements p{
+    font-size: 20px;
+}
+
+.footer {
+    padding-left: 15%;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgb(37, 36, 36);
+}
+.footer p{
+    font-size: 16px;
+    color: white;
 }
