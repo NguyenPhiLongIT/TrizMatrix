@@ -44,9 +44,11 @@ app.get("/", (req, res, next) => {
 
 app.post('/get-answers', async (req, res, next) => {
 
-    let rulename = [], rulecontent = [];
+    let ruleid = [], rulename = [], rulecontent = [], ruledensity = [];
+    const ruleid_list = req.improvements.map(item => item._id);
     const rulename_list = req.improvements.map(item => item.rule_name);
     const rulecontent_list = req.improvements.map(item => item.content);
+    const ruledensity_list = req.improvements.map(item => item.density);
 
     if (req.body.goodOption != 0 && req.body.badOption != 0) {
         const list = req.matrix[req.body.goodOption].pros[req.body.badOption].data;
@@ -58,14 +60,16 @@ app.post('/get-answers', async (req, res, next) => {
             } else if (element == 99) {
                 element = 42;
             }
+            if(ruleid_list[element - 1] != 90 && ruleid_list[element - 1] != 99) ruleid.push(ruleid_list[element - 1] + ". ");
             rulename.push(rulename_list[element - 1]);
             rulecontent.push(rulecontent_list[element - 1]);
+            if(ruledensity_list[element - 1] != 0) ruledensity.push("["+ruledensity_list[element - 1]+"]"); 
         }
     } else {
         rulename.push('Vui lòng chọn thêm tùy chọn');
     }
 
-    res.render('include/answers.ejs', { rulename, rulecontent });
+    res.render('include/answers.ejs', { ruleid, rulename, rulecontent, ruledensity });
 });
 
 
