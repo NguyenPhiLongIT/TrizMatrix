@@ -68,10 +68,7 @@ body{
     font-size: 25px;
     margin-bottom: 15px;
 }
-.improvements .concept h4{
-    font-size: 20px;
-}
-.improvements .concept p{
-    font-size: 20px;
-    margin-bottom: 10px;
+.improvements .concept{
+    list-style:lower-alpha;
+    margin-bottom: 20px;
 }

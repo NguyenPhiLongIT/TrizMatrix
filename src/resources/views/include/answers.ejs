@@ -1,14 +1,11 @@
 <div class="concept">
-    <% if(rule_index == 90){ %>
-        <p>Không có nguyên tắc</p>
-    <%}else if(rule_index.length === 0){ %>
-        <p>Chưa tìm ra nguyên tắc</p>
-    <% } else {%>
-        <% for (let i = 0; i < rule_index.length; i++) { %>
-        <div class="rule">
-            <h4><%= rule_index[i] %><span>.</span><%= rule_name[i] %>&nbsp;&#91;<%= rule_appears[i] %>&#93;</h4>
-            <p class="rule-detail"><%= rule_detail[i] %></p>
-        </div>
-        <% } %>
+    <% for (let i = 0; i < rule_name.length; i++) { %>
+    <div class="rule">
+        <h4><%= rule_name[i] %>&nbsp;<%= ruledensity[i] %></h4>
+        <% if (rule_content[i]) rule_content[i].forEach(element => { %>
+        <p class="rule_content"><%= element %></p>
+        <% }); %>
+
+    </div>
     <% } %>
 </div>
