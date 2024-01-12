@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Trung tâm Sáng tạo Khoa học-kỹ thuật</title>
+    <meta charset="UtF-8">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="/scripts/index.js" defer></script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Trung Tâm Sáng Tạo Khoa Học-Kỹ Thuật</h1>
+        <h2>Bảng Giải Quyết Mâu Thuẫn Kỹ Thuật</h2>
+    </div>
+    <div class="content">
+        <div class="metrics">
+            <div class="good-details-select" style="margin-bottom:35px">
+                <p>Thông số tốt lên</p>
+                <select id="goodOption" name="goodOption" onchange="updateAnswers()">
+                    <option value="0">None</option>
+                    <% metrics.forEach(function( item, index) { %>
+                    <option value="<%= index + 1 %>"> <%= item.value %> </option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="bad-details-select">
+                <p>Thông số xấu đi</p>
+                <select id="badOption" name="badOption" onchange="updateAnswers()">
+                    <option value="0">None</option>
+                    <% metrics.forEach(function( item, index) { %>
+                    <option value="<%= index + 1 %>"> <%= item.value %> </option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="clr"></div>
+        </div>
+        <div class="improvements">
+            <h3>Kết quả</h3>
+            <h4>Hãy chọn các lựa chọn phía trên để xem kết quá</h4>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&#169; Copyright Algorit Lab</p>
+    </div>
+</body>
+
+</html>
