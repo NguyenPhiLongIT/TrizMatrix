@@ -18,8 +18,8 @@
         <div class="metrics">
             <div class="good-details-select" style="margin-bottom:35px">
                 <p>Thông số tốt lên</p>
-                <select id="goodOption" name="goodOption" onchange="updateAnswers()">
-                    <option value="0">None</option>
+                <select id="goodOption" name="goodOption" onchange="updateAnswers(), clearNone_goodOption()">
+                    <option value="0">Hãy chọn lựa chọn</option>
                     <% metrics.forEach(function( item, index) { %>
                     <option value="<%= index + 1 %>"> <%= item.value %> </option>
                     <% }); %>
@@ -27,8 +27,8 @@
             </div>
             <div class="bad-details-select">
                 <p>Thông số xấu đi</p>
-                <select id="badOption" name="badOption" onchange="updateAnswers()">
-                    <option value="0">None</option>
+                <select id="badOption" name="badOption" onchange="updateAnswers(), clearNone_badOption()">
+                    <option value="0">Hãy chọn lựa chọn</option>
                     <% metrics.forEach(function( item, index) { %>
                     <option value="<%= index + 1 %>"> <%= item.value %> </option>
                     <% }); %>
