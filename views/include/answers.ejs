@@ -1,8 +1,11 @@
 <div class="concept">
-    <% for (let i = 0; i < rule_name.length; i++) { %>
+    <% for (let i = 0; i < rulename.length; i++) { %>
     <div class="rule">
-        <h3><%= rule_name[i] %></h3>
-        <p class="rule-detail"><%= rule_detail[i] %></p>
+        <h4><%= rulename[i] %></h4>
+        <% if (rulecontent[i]) rulecontent[i].forEach(element => { %>
+        <p class="rule_content"><%= element %></p>
+        <% }); %>
+
     </div>
     <% } %>
 </div>

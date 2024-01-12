@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const matrixSchema = new Schema({
-  ID: String,
-  pros: [
-    {
-      ID: String,
-      data: String,
-    },
-  ],
+    pros: [
+        {
+            data: String,
+            _id: String,
+        },
+    ],
+    _id: String
 });
 
-module.exports = mongoose.model("Metrics", matrixSchema);
+module.exports = mongoose.model("Matrix", matrixSchema, "matrix");

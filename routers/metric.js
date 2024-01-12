@@ -5,6 +5,6 @@ const metricController = require("../controllers/metric");
 
 const router = express.Router();
 
-router.get("/", metricController.getMetricById);
+router.get('/a', metricController.getAllMetrics);
 
 module.exports = router;

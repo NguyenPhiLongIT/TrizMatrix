@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "install": "npm install ejs express mongodb mongoose nodemon dotenv",
+    "check-packages": "npm ls ejs express mongodb mongoose nodemon dotenv || npm run install",
+    "start": "npm run check-packages && nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

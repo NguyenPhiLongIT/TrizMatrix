@@ -5,66 +5,71 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const metricController = require("./controllers/metric");
-const mongoConnect = require("./datas/database").mongoConnect;
+const improvementController = require("./controllers/improvement");
+const matrixController = require("./controllers/matrix");
+// const mongoConnect = require("./datas/database").mongoConnect;
+
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.set("view engine", "ejs");
-app.set("views", "views");
-
+app.set("views", path.join(__dirname, 'views'));
+app.use(express.json());
 const metricRouter = require("./routers/metric");
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/", (req, res) => {
-  res.render("home");
-});
-
 app.use(metricRouter);
 
-// app.post("/get-answers", async (req, res) => {
-//   const rulename = [];
-//   const ruledensity = [];
-//   const rule_content = [];
-//   if (req.body.goodOption != 0 && req.body.badOption != 0) {
-//     const rowData = await db
-//       .runOne("matrix", { _id: req.body.goodOption })
-//       .catch(console.dir);
-//     const list = rowData.pros.find(
-//       (item) => item && item._id === req.body.badOption
-//     ).data;
-//     const test_arr = list.split(",").map(Number);
-//     for (let index = 0; index < test_arr.length; index++) {
-//       let element = test_arr[index];
-//       if (element == 90) {
-//         element = 41;
-//       } else if (element == 99) {
-//         element = 42;
-//       }
-//       const data_des_name = ruleNameList[element - 1];
-//       const data_density = densityList[element - 1];
-//       const data_des_deitail = contentList[element - 1];
-//       rulename.push(data_des_name);
-//       if (data_density != 0) ruledensity.push("[" + data_density + "]");
-//       rule_content.push(data_des_deitail);
-//     }
-//   } else {
-//     rulename.push("Vui lòng chọn tùy chọn");
-//   }
-
-//   app.locals.rule_name = rulename;
-//   app.locals.density = ruledensity;
-//   app.locals.content = rule_content;
-//   res.render("include/answers.ejs", { rulename, ruledensity, rule_content });
-// });
 
 mongoose
-  .connect(process.env.DB_URI)
-  .then(() => {
-    app.listen(PORT);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    .connect(process.env.DB_URI)
+    .then(() => {
+        app.listen(PORT);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+app.use(metricController.getAllMetrics, improvementController.getAllImprovements, matrixController.getAllMatrix, (req, res, next) => {
+    next();
+});
+
+app.get("/", (req, res, next) => {
+    res.render("home", { metrics: req.metrics });
+    next();
+});
+
+app.post('/get-answers', async (req, res, next) => {
+
+    let rulename = [], rulecontent = [];
+    const rulename_list = req.improvements.map(item => item.rule_name);
+    const rulecontent_list = req.improvements.map(item => item.content);
+
+    if (req.body.goodOption != 0 && req.body.badOption != 0) {
+        const list = req.matrix[req.body.goodOption].pros[req.body.badOption].data;
+        const data_arr = list.split(',').map(Number);
+        for (let index = 0; index < data_arr.length; index++) {
+            let element = data_arr[index];
+            if (element == 90) {
+                element = 41;
+            } else if (element == 99) {
+                element = 42;
+            }
+            rulename.push(rulename_list[element - 1]);
+            rulecontent.push(rulecontent_list[element - 1]);
+        }
+    } else {
+        rulename.push('Vui lòng chọn thêm tùy chọn');
+    }
+
+    res.render('include/answers.ejs', { rulename, rulecontent });
+});
+
+
+
+app.listen(() => {
+    console.log(`Example app listening on port ${PORT}`);
+})
