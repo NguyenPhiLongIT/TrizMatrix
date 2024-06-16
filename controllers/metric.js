@@ -3,8 +3,8 @@ const metricService = require("../services/metric");
 exports.getAllMetrics = async (req, res, next) => {
     try {
         const metrics = await metricService.getAllMetrics();
-        req.metrics = metrics; //-> set metrics to req, cant use res.json
-        next();
+        metrics.sort((a, b) => parseInt(a._id) - parseInt(b._id));
+        res.json(metrics)
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
@@ -21,8 +21,8 @@ exports.createMetric = async (req, res, next) => {
 
 exports.getMetricById = async (req, res, next) => {
     try {
-        const metric = await metricService.getMetricById(req.params.id);
-        res.json({ data: metric, status: "success" }); // use res.json to send an object
+        const metric = await metricService.getMetricByID(req.params.id);
+        res.json({ data: metric, status: "success" });
     } catch (err) {
         res.status(500).send({ error: err.message });
     }

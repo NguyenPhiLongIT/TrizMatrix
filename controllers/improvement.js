@@ -3,8 +3,7 @@ const improvementService = require("../services/improvement");
 exports.getAllImprovements = async (req, res, next) => {
 	try {
 		const improvements = await improvementService.getAllImprovements();
-		req.improvements = improvements;
-		next();
+		res.json(improvements);
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}

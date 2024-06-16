@@ -19,3 +19,15 @@ exports.updateMatrix = async (id, metric) => {
 exports.deleteMatrix = async (id) => {
     return await MatrixModel.delete(id);
 };
+
+exports.getMatrixData = async (col, row) => {
+    return await MatrixModel.findOne(
+        { _id: col, 'pros._id': row },
+        { 'pros.$': 1, _id: 1 } // This projection includes the specific element from the array and the document's _id
+    ).exec().then((data) => {
+        if (!data) return null;
+        var data = data.pros[0].data;
+        var dataArray = data.split(",").map(Number);
+        return dataArray
+    })
+};

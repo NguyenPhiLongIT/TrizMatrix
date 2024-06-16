@@ -5,10 +5,10 @@ const matrixSchema = new Schema({
     pros: [
         {
             data: String,
-            _id: String,
+            _id: Number,
         },
     ],
-    _id: String
+    _id: Number
 });
 
 module.exports = mongoose.model("Matrix", matrixSchema, "matrix");
